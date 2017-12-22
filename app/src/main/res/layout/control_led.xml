@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/star"
+    android:alpha="0.9"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+        <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textViewSPKT"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="13dp"
+                android:fontFamily="sans-serif"
+                android:text="ĐẠI HỌC SƯ PHẠM KỸ THUẬT TP.HCM"
+                android:textColor="@color/blue"
+                android:textSize="8sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/buttonThoat"
+                android:layout_width="55dp"
+                android:layout_height="20dp"
+                android:layout_marginEnd="4dp"
+                android:background="@color/blue"
+                android:onClick="clickExit"
+                android:text="THOÁT"
+                android:textColor="@color/red"
+                android:textSize="10sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+            <TextView
+                android:id="@+id/textDEN1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="92dp"
+                android:text="SANG"
+                android:textColor="@color/red"
+                android:textSize="10sp"
+                app:layout_constraintEnd_toStartOf="@+id/imageDEN1"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textTENDEN1"
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:text="ĐÈN 1"
+                android:textColor="@color/blue"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toTopOf="@+id/imageDEN1"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <Switch
+                android:id="@+id/swOnOff1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="5dp"
+                android:scaleX="0.8"
+                android:scaleY="0.8"
+                android:text=""
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageDEN1" />
+
+            <TextView
+                android:id="@+id/textPWM1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="92dp"
+                android:text="100"
+                android:textColor="@color/green"
+                android:textSize="10sp"
+                app:layout_constraintStart_toEndOf="@+id/imageDEN1"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <SeekBar
+                android:id="@+id/seekBar1"
+                style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="105dp"
+                android:layout_height="23dp"
+                android:layout_marginTop="4dp"
+                android:max="100"
+                android:progress="3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/swOnOff1" />
+
+            <ImageView
+                android:id="@+id/imageDEN1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="84dp"
+                android:src="@drawable/hinh5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <SeekBar
+                android:id="@+id/seekBar2"
+                style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="105dp"
+                android:layout_height="23dp"
+                android:layout_marginTop="4dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/swOnOff2" />
+
+            <Switch
+                android:id="@+id/swOnOff2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="5dp"
+                android:scaleX="0.8"
+                android:scaleY="0.8"
+                android:text=""
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageDEN2" />
+
+
+            <TextView
+                android:id="@+id/textDEN2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="92dp"
+                android:text="SANG"
+                android:textColor="@color/red"
+                android:textSize="10sp"
+                app:layout_constraintEnd_toStartOf="@+id/imageDEN2"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textPWM2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:text="100"
+                android:textColor="@color/green"
+                android:textSize="10sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/imageDEN2"
+                app:layout_constraintTop_toBottomOf="@+id/buttonThoat" />
+
+            <TextView
+                android:id="@+id/textTENDEN2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:text="ĐÈN 2"
+                android:textColor="@color/blue"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toTopOf="@+id/imageDEN2"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageDEN2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="84dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/hinh5" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:fontFamily="sans-serif"
+                android:text="ĐỒ ÁN TỐT NGHIỆP"
+                android:textColor="@color/blue"
+                android:textSize="8sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewSPKT" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:fontFamily="sans-serif"
+                android:text="PHẠM PHI CƯỜNG - NGUYỄN HOÀNG PHÚC"
+                android:textColor="@color/blue"
+                android:textSize="8sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+
+        </android.support.constraint.ConstraintLayout>
+</ScrollView>
