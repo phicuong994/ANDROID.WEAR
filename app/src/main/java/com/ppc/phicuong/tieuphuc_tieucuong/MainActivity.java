@@ -41,10 +41,10 @@ public class MainActivity extends WearableActivity {
     WifiScanReceiver wifiReciever;
     ListView llist;
     String wifis[];
-    TextView TextDEN1, TextPWM1, TextDEN2, TextPWM2, TextDEN3, TextPWM3;
-    ImageView imageDEN1, imageDEN2, imageDEN3;
-    Switch swOnOff1, swOnOff2, swOnOff3;
-    SeekBar seekBar1, seekBar2, seekBar3;
+    TextView TextDEN1, TextPWM1, TextDEN2, TextPWM2, TextDEN3, TextPWM3, TextDEN4, TextPWM4;
+    ImageView imageDEN1, imageDEN2, imageDEN3, imageDEN4;
+    Switch swOnOff1, swOnOff2, swOnOff3, swOnOff4;
+    SeekBar seekBar1, seekBar2, seekBar3, seekBar4;
     Button btnThoat;
     Firebase myFirebase;
     EditText pass;
@@ -210,23 +210,24 @@ public class MainActivity extends WearableActivity {
         swOnOff1 = (Switch) dialogled.findViewById(R.id.swOnOff1);
         swOnOff2 = (Switch) dialogled.findViewById(R.id.swOnOff2);
         swOnOff3 = (Switch) dialogled.findViewById(R.id.swOnOff3);
-
+        swOnOff4 = (Switch) dialogled.findViewById(R.id.swOnOff4);
         seekBar1 = (SeekBar) dialogled.findViewById(R.id.seekBar1);
         seekBar2 = (SeekBar) dialogled.findViewById(R.id.seekBar2);
         seekBar3 = (SeekBar) dialogled.findViewById(R.id.seekBar3);
+        seekBar4 = (SeekBar) dialogled.findViewById(R.id.seekBar4);
         TextDEN1 = (TextView) dialogled.findViewById(R.id.textDEN1);
         TextDEN2 = (TextView) dialogled.findViewById(R.id.textDEN2);
         TextDEN3 = (TextView) dialogled.findViewById(R.id.textDEN3);
-
+        TextDEN4 = (TextView) dialogled.findViewById(R.id.textDEN4);
         TextPWM1 = (TextView) dialogled.findViewById(R.id.textPWM1);
         TextPWM2 = (TextView) dialogled.findViewById(R.id.textPWM2);
         TextPWM3 = (TextView) dialogled.findViewById(R.id.textPWM3);
-
+        TextPWM4 = (TextView) dialogled.findViewById(R.id.textPWM4);
         imageDEN1 = (ImageView) dialogled.findViewById(R.id.imageDEN1);
         imageDEN2 = (ImageView) dialogled.findViewById(R.id.imageDEN2);
         imageDEN3 = (ImageView) dialogled.findViewById(R.id.imageDEN3);
-
-        btnThoat = (Button)     dialogled.findViewById(R.id.buttonThoat);
+        imageDEN4 = (ImageView) dialogled.findViewById(R.id.imageDEN4);
+        btnThoat  = (Button)     dialogled.findViewById(R.id.buttonThoat);
         Firebase.setAndroidContext(this);
         myFirebase = new Firebase("https://savevalueonfirebase.firebaseio.com");
 //*********************************************************************************************************
@@ -289,6 +290,25 @@ public class MainActivity extends WearableActivity {
 
             }
         });
+        myFirebase.child("DEN 4").child("STATE").child("TRANG THAI").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getValue().equals("SANG")) {
+                    imageDEN4.setImageResource(R.drawable.hinh1);
+                    Toast.makeText(MainActivity.this, "Đã Cập Nhật", Toast.LENGTH_SHORT).show();
+
+                } else if (dataSnapshot.getValue().equals("TAT")) {
+                    imageDEN4.setImageResource(R.drawable.hinh2);
+                    Toast.makeText(MainActivity.this, "Đã Cập Nhật", Toast.LENGTH_SHORT).show();
+                }
+                TextDEN4.setText(dataSnapshot.getValue().toString());
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
 
 
         //*********************************************************************************************************
@@ -322,7 +342,16 @@ public class MainActivity extends WearableActivity {
             public void onCancelled(FirebaseError firebaseError) {
             }
         });
+        myFirebase.child("DEN 4").child("STATE").child("DO SANG").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                TextPWM4.setText(dataSnapshot.getValue().toString());
+            }
 
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+            }
+        });
         //*****************************************************************************************************
         //*******************SWITCH BẬT TẮT ĐÈN****************************************************************
         // **************************************************************************************************
@@ -356,7 +385,17 @@ public class MainActivity extends WearableActivity {
                 }
             }
         });
-
+        swOnOff4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    myFirebase.child("DEN 4").child("STATE").child("TRANG THAI").setValue("SANG");
+                    imageDEN4.setImageResource(R.drawable.hinh1);
+                } else {
+                    myFirebase.child("DEN 4").child("STATE").child("TRANG THAI").setValue("TAT");
+                }
+            }
+        });
         //*********************************************************************************************************
         //*******************THANH ĐIỀU CHỈNH ĐỘ SÁNG ĐÈN DÙNG SEEKBAR*********************************************
         // ******************************************************************************************************
@@ -413,6 +452,25 @@ public class MainActivity extends WearableActivity {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 Toast.makeText(MainActivity.this, "Độ Sáng Thiết Lập Đèn 3: " + progress_value3, Toast.LENGTH_SHORT).show();
+            }
+        });
+        seekBar4.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            int progress_value4;
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                progress_value4 = progress;
+                myFirebase.child("DEN 4").child("STATE").child("DO SANG").setValue(String.valueOf((seekBar4.getProgress())));
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                Toast.makeText(MainActivity.this, "Độ Sáng Thiết Lập Đèn 4: " + progress_value4, Toast.LENGTH_SHORT).show();
             }
         });
 
