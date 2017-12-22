@@ -41,10 +41,10 @@ public class MainActivity extends WearableActivity {
     WifiScanReceiver wifiReciever;
     ListView llist;
     String wifis[];
-    TextView TextDEN1, TextPWM1, TextDEN2, TextPWM2;
-    ImageView imageDEN1, imageDEN2;
-    Switch swOnOff1, swOnOff2;
-    SeekBar seekBar1, seekBar2;
+    TextView TextDEN1, TextPWM1, TextDEN2, TextPWM2, TextDEN3, TextPWM3;
+    ImageView imageDEN1, imageDEN2, imageDEN3;
+    Switch swOnOff1, swOnOff2, swOnOff3;
+    SeekBar seekBar1, seekBar2, seekBar3;
     Button btnThoat;
     Firebase myFirebase;
     EditText pass;
@@ -209,23 +209,22 @@ public class MainActivity extends WearableActivity {
         dialogled.setTitle("Control led ");
         swOnOff1 = (Switch) dialogled.findViewById(R.id.swOnOff1);
         swOnOff2 = (Switch) dialogled.findViewById(R.id.swOnOff2);
-
+        swOnOff3 = (Switch) dialogled.findViewById(R.id.swOnOff3);
 
         seekBar1 = (SeekBar) dialogled.findViewById(R.id.seekBar1);
         seekBar2 = (SeekBar) dialogled.findViewById(R.id.seekBar2);
-
-
+        seekBar3 = (SeekBar) dialogled.findViewById(R.id.seekBar3);
         TextDEN1 = (TextView) dialogled.findViewById(R.id.textDEN1);
         TextDEN2 = (TextView) dialogled.findViewById(R.id.textDEN2);
-
+        TextDEN3 = (TextView) dialogled.findViewById(R.id.textDEN3);
 
         TextPWM1 = (TextView) dialogled.findViewById(R.id.textPWM1);
         TextPWM2 = (TextView) dialogled.findViewById(R.id.textPWM2);
-
+        TextPWM3 = (TextView) dialogled.findViewById(R.id.textPWM3);
 
         imageDEN1 = (ImageView) dialogled.findViewById(R.id.imageDEN1);
         imageDEN2 = (ImageView) dialogled.findViewById(R.id.imageDEN2);
-
+        imageDEN3 = (ImageView) dialogled.findViewById(R.id.imageDEN3);
 
         btnThoat = (Button)     dialogled.findViewById(R.id.buttonThoat);
         Firebase.setAndroidContext(this);
@@ -238,11 +237,11 @@ public class MainActivity extends WearableActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.getValue().equals("SANG")) {
                     imageDEN1.setImageResource(R.drawable.hinh1);
-            //        Toast.makeText(MainActivity.this, "Đã Cập Nhật", Toast.LENGTH_SHORT).show();
+                    //        Toast.makeText(MainActivity.this, "Đã Cập Nhật", Toast.LENGTH_SHORT).show();
 
                 } else if (dataSnapshot.getValue().equals("TAT")) {
                     imageDEN1.setImageResource(R.drawable.hinh2);
-            //        Toast.makeText(MainActivity.this, "Đã Cập Nhật", Toast.LENGTH_SHORT).show();
+                    //        Toast.makeText(MainActivity.this, "Đã Cập Nhật", Toast.LENGTH_SHORT).show();
                 }
                 TextDEN1.setText(dataSnapshot.getValue().toString());
             }
@@ -257,13 +256,32 @@ public class MainActivity extends WearableActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.getValue().equals("SANG")) {
                     imageDEN2.setImageResource(R.drawable.hinh1);
-             //       Toast.makeText(MainActivity.this, "Đã Cập Nhật", Toast.LENGTH_SHORT).show();
+                    //       Toast.makeText(MainActivity.this, "Đã Cập Nhật", Toast.LENGTH_SHORT).show();
 
                 } else if (dataSnapshot.getValue().equals("TAT")) {
                     imageDEN2.setImageResource(R.drawable.hinh2);
-             //       Toast.makeText(MainActivity.this, "Đã Cập Nhật", Toast.LENGTH_SHORT).show();
+                    //       Toast.makeText(MainActivity.this, "Đã Cập Nhật", Toast.LENGTH_SHORT).show();
                 }
                 TextDEN2.setText(dataSnapshot.getValue().toString());
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
+        myFirebase.child("DEN 3").child("STATE").child("TRANG THAI").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getValue().equals("SANG")) {
+                    imageDEN3.setImageResource(R.drawable.hinh1);
+                    Toast.makeText(MainActivity.this, "Đã Cập Nhật", Toast.LENGTH_SHORT).show();
+
+                } else if (dataSnapshot.getValue().equals("TAT")) {
+                    imageDEN3.setImageResource(R.drawable.hinh2);
+                    Toast.makeText(MainActivity.this, "Đã Cập Nhật", Toast.LENGTH_SHORT).show();
+                }
+                TextDEN3.setText(dataSnapshot.getValue().toString());
             }
 
             @Override
@@ -294,6 +312,16 @@ public class MainActivity extends WearableActivity {
             public void onCancelled(FirebaseError firebaseError) {
             }
         });
+        myFirebase.child("DEN 3").child("STATE").child("DO SANG").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                TextPWM3.setText(dataSnapshot.getValue().toString());
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+            }
+        });
 
         //*****************************************************************************************************
         //*******************SWITCH BẬT TẮT ĐÈN****************************************************************
@@ -315,6 +343,16 @@ public class MainActivity extends WearableActivity {
                     myFirebase.child("DEN 2").child("STATE").child("TRANG THAI").setValue("SANG");
                 } else {
                     myFirebase.child("DEN 2").child("STATE").child("TRANG THAI").setValue("TAT");
+                }
+            }
+        });
+        swOnOff3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    myFirebase.child("DEN 3").child("STATE").child("TRANG THAI").setValue("SANG");
+                } else {
+                    myFirebase.child("DEN 3").child("STATE").child("TRANG THAI").setValue("TAT");
                 }
             }
         });
@@ -356,6 +394,25 @@ public class MainActivity extends WearableActivity {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 Toast.makeText(MainActivity.this, "Độ Sáng Thiết Lập Đèn 2: " + progress_value2, Toast.LENGTH_SHORT).show();
+            }
+        });
+        seekBar3.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            int progress_value3;
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                progress_value3 = progress;
+                myFirebase.child("DEN 3").child("STATE").child("DO SANG").setValue(String.valueOf((seekBar3.getProgress())));
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                Toast.makeText(MainActivity.this, "Độ Sáng Thiết Lập Đèn 3: " + progress_value3, Toast.LENGTH_SHORT).show();
             }
         });
 
